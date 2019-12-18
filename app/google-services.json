@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "145288052480",
+    "firebase_url": "https://eribus-2d849.firebaseio.com",
+    "project_id": "eribus-2d849",
+    "storage_bucket": "eribus-2d849.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145288052480:android:413f834198c8986b7d7de5",
+        "android_client_info": {
+          "package_name": "com.emito.eribus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145288052480-6ilh1k3ijjan8sh59fr6f8ejq9jhpq9o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.emito.eribus",
+            "certificate_hash": "0f0856eb6e602585dc8e3503c2ff584b00f4371e"
+          }
+        },
+        {
+          "client_id": "145288052480-ovbls33faasi899i4a06runefp99s40h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD2-ky990_D69qkJmSdQrcHD_xVyhc7kI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145288052480-ovbls33faasi899i4a06runefp99s40h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

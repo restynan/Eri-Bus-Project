@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_customer_home"
+            android:icon="@drawable/baseline_home_line_24"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_customer_shareLocation"
+            android:icon="@drawable/baseline_shop_cat_24"
+            android:title="Share Location" />
+    </group>
+
+    <item android:title="">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_customer_booking"
+                    android:icon="@drawable/baseline_announce_white_24"
+                    android:title="Booking" />
+                <item
+                    android:id="@+id/nav_customer_booking_history"
+                    android:icon="@drawable/baseline_progress_black_24"
+                    android:title="Booking History" />
+                <item
+                    android:id="@+id/nav_customer_search"
+                    android:icon="@drawable/baseline_fab_search_24"
+                    android:title="Search" />
+
+            </group>
+        </menu>
+    </item>
+
+
+    <item android:title="User Info">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/baseline_profile_card_black_24"
+                    android:title="Profile" />
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/baseline_power_black_24"
+                    android:title="Logout" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="App">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_about_us"
+                    android:icon="@drawable/baseline_info_line_24"
+                    android:title="About Us" />
+                <item
+                    android:id="@+id/nav_contact_us"
+                    android:icon="@drawable/baseline_book_black_24"
+                    android:title="Contact Us" />
+                <item
+                    android:id="@+id/nav_setting"
+                    android:icon="@drawable/baseline_setting_black_24"
+                    android:title="Setting" />
+            </group>
+        </menu>
+    </item>
+
+</menu>
