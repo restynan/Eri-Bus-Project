@@ -33,41 +33,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <fragment
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                tools:context=".MapsActivity"
-                tools:layout="@layout/support_simple_spinner_dropdown_item"
-                />
-
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="450dp"
-               android:textStyle="bold"
-                android:text="where are u going?"
-                android:textSize="25sp"
-
-                />
-
-            <EditText
-                android:id="@+id/editTextlatitude"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-
-                android:layout_marginTop="500dp"
-
-                android:hint="type your destination"
-                />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/busimage">
 
 
         </FrameLayout>

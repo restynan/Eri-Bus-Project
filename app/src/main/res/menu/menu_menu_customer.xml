@@ -29,6 +29,11 @@
                     android:id="@+id/nav_customer_search"
                     android:icon="@drawable/baseline_fab_search_24"
                     android:title="Search" />
+                <item
+                    android:id="@+id/nav_customer_map"
+                    android:icon="@drawable/mapss"
+                    android:title="maps" />
+
 
             </group>
         </menu>

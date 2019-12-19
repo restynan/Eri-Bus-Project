@@ -5,9 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.PorterDuff
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
+import android.location.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -44,11 +42,13 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import kotlinx.android.synthetic.main.feature_customer_menu_general_menu_4_view_layout.*
 import kotlinx.android.synthetic.main.feature_menu_general_menu_4_activity.*
+import java.io.IOException
+import java.util.*
 import java.util.jar.Manifest
 
-class CustomerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    OnMapReadyCallback{
+class CustomerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
     private lateinit var mMap: GoogleMap
     private lateinit var locationProvider: FusedLocationProviderApi
     private lateinit var locationManager:LocationManager
@@ -56,6 +56,14 @@ class CustomerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private lateinit var  latLng:LatLng
     private  val Min_Time:Long=1000
     private  val Min_Dist:Float=5f
+    lateinit  var address:String
+    lateinit  var city:String
+    lateinit  var state:String
+    lateinit  var country:String
+
+
+    lateinit var geocoder : Geocoder
+    var addresses = mutableListOf<Address>()
 
 
     internal lateinit var toolbar: Toolbar
@@ -69,87 +77,12 @@ class CustomerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         setContentView(R.layout.activity_customer)
 
         initUI()
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
 
 
-    }
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        locationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+       // ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),PackageManager.PERMISSION_GRANTED)
+       // ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),PackageManager.PERMISSION_GRANTED)
 
 
-
-        locationListener= object: LocationListener{
-            override fun onLocationChanged(location: Location?) {
-                // Add a marker to over new location****************************************
-                // editTextlatitude.setText(location?.latitude.toString())
-                //   editTextlongitude.setText(location?.longitude.toString())
-
-                try {
-                    latLng = LatLng(location!!.latitude, location!!.longitude)
-                    mMap.clear() // clear old location markerin google map
-                    mMap.addMarker(MarkerOptions().position(latLng).title("user Location "))
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-                }
-                catch (e:SecurityException){
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-
-            }
-
-            override fun onProviderEnabled(provider: String?) {
-
-            }
-
-            override fun onProviderDisabled(provider: String?) {
-
-            }
-        }
-
-        ///asking for map pemissions/user persmissions
-
-        askPermission()
-
-
-    }
-    fun askPermission(){
-        val withListener = Dexter.withActivity(this).withPermission(android.Manifest.permission.ACCESS_FINE_LOCATION).withListener(object : PermissionListener {
-            override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-                try{
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Min_Time, Min_Dist, locationListener)
-                    var lastLocation =locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                    latLng = LatLng( lastLocation!!.latitude, lastLocation!!.longitude)
-                    mMap.clear() // clear old location markerin google map
-                    mMap.addMarker(MarkerOptions().position(latLng).title("user Location "))
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-                }
-                catch (e:SecurityException){
-                    e.printStackTrace()
-                }
-
-            }
-
-            override fun onPermissionRationaleShouldBeShown(
-                permission: PermissionRequest?,
-                token: PermissionToken?
-            ) {token?.continuePermissionRequest()
-
-            }
-
-            override fun onPermissionDenied(response: PermissionDeniedResponse?) {
-
-            }
-
-        }).check()
     }
 
 
@@ -209,11 +142,23 @@ class CustomerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         } else if (id == R.id.nav_customer_booking_history) {
             Toast.makeText(this, "Clicked Buses.", Toast.LENGTH_SHORT).show()
+            try{
+                this.supportFragmentManager.beginTransaction().replace(R.id.content_frame,CustomerHistoryFragment())
+                    .commitAllowingStateLoss()
+            }catch (e:Exception){
+                Log.d("error:", "Error! Can't Replace")
+            }
         }
         else if (id == R.id.nav_route) {
             Toast.makeText(this, "Clicked Routes.", Toast.LENGTH_SHORT).show()
-        } else if (id == R.id.nav_map) {
+        } else if (id == R.id.nav_customer_map) {
             Toast.makeText(this, "Clicked Routes.", Toast.LENGTH_SHORT).show()
+            try{
+                this.supportFragmentManager.beginTransaction().replace(R.id.content_frame,mapsFragment())
+                    .commitAllowingStateLoss()
+            }catch (e:Exception){
+                Log.d("error:", "Error! Can't Replace")
+            }
         }else if (id == R.id.nav_search) {
             Toast.makeText(this, "Clicked Search.", Toast.LENGTH_SHORT).show()
         } else if (id == R.id.nav_profile) {
